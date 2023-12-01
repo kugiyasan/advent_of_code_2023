@@ -187,6 +187,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "d1_trebuchet"
+version = "0.1.0"
+dependencies = [
+ "aoc_utils",
+]
+
+[[package]]
 name = "derive_more"
 version = "0.99.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
