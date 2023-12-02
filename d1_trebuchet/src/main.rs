@@ -1,4 +1,4 @@
-use aoc_utils::submit;
+// use aoc_utils::submit;
 use std::fs;
 
 fn main() {
@@ -23,15 +23,15 @@ fn main() {
                 .replace("nine", "nine9nine");
 
             let line: String = line.chars().filter(|c| c.is_digit(10)).collect();
-            println!("{:?}", line);
+            // println!("{:?}", line);
             let line = line.chars().take(1).collect::<String>()
                 + &line.chars().last().unwrap().to_string();
-            println!("{:?}", line);
+            // println!("{:?}", line);
             line.parse::<i32>().unwrap()
         })
         .sum();
 
     println!("{:?}", &input[0..5]);
     println!("{}", n);
-    submit(&n.to_string(), true);
+    // submit(&n.to_string(), true);
 }
