@@ -24,7 +24,25 @@ def part1(lines: List[str]) -> str:
 
 
 def part2(lines: List[str]) -> str:
-    pass
+    arr = []
+
+    for line in lines:
+        line = line.split(": ")[1]
+        w, h = line.split(" | ")
+        winning_numbers = {int(n) for n in w.split()}
+        hand = {int(n) for n in h.split()}
+
+        n = len(winning_numbers.intersection(hand))
+
+        arr.append(n)
+
+    cards = [1] * len(arr)
+
+    for i, scratch_card in enumerate(arr):
+        for j in range(arr[i]):
+            cards[i + j + 1] += cards[i]
+
+    return str(sum(cards))
 
 
 def submit(answer: str, part2: bool) -> None:
@@ -39,8 +57,8 @@ def submit(answer: str, part2: bool) -> None:
 def main() -> None:
     with open(PATH) as f:
         lines = f.readlines()
-        submit(str(part1(lines)), False)
-        # submit(str(part2(lines)), True)
+        # submit(str(part1(lines)), False)
+        submit(str(part2(lines)), True)
 
 
 if __name__ == "__main__":
