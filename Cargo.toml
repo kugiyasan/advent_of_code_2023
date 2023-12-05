@@ -4,5 +4,7 @@ resolver = "2"
 members = [
     "aoc_utils",
     "aoc_utils_tests",
-    "d1_trebuchet"
+    "d1_trebuchet",
+    "d4_scratchcards",
+    "d5_fertilizer"
 ]
