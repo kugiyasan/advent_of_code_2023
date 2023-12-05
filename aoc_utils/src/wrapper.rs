@@ -4,7 +4,7 @@ use pyo3::prelude::*;
 #[pyfunction]
 fn submit(answer: String, part2: Option<bool>) -> PyResult<()> {
     let part2 = part2.unwrap_or(false);
-    crate::core::submit(&answer, part2);
+    crate::submit::submit(&answer, part2);
     Ok(())
 }
 

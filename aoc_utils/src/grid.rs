@@ -34,6 +34,19 @@ impl<T> Grid<T> {
         let i = self.point_to_index(p);
         self.grid[i] = value;
     }
+
+    pub fn is_in_bound(&self, p: Vec2) -> bool {
+        let valid_x = 0 <= p.x && p.x < (self.width as i32);
+        let valid_y = 0 <= p.y && p.y < (self.height as i32);
+
+        valid_x && valid_y
+    }
+
+    fn point_to_index(&self, p: Vec2) -> usize {
+        let x = p.x as usize;
+        let y = p.y as usize;
+        y * self.width + x
+    }
 }
 
 impl<T> Grid<T> {
@@ -59,10 +72,21 @@ impl<T> Grid<T> {
             )
         })
     }
+}
 
-    fn point_to_index(&self, p: Vec2) -> usize {
-        let x = p.x as usize;
-        let y = p.y as usize;
-        y * self.width + x
+impl<T> Grid<T> {
+    pub fn neighbors(&self, origin: Vec2) -> impl Iterator<Item = &T> {
+        let coords = [
+            Vec2::new(-1, -1),
+            Vec2::new(-1, 0),
+            Vec2::new(-1, 1),
+            Vec2::new(0, -1),
+            Vec2::new(0, 1),
+            Vec2::new(1, -1),
+            Vec2::new(1, 0),
+            Vec2::new(1, 1),
+        ];
+
+        coords.into_iter().map(move |p| self.get(origin + p))
     }
 }

@@ -53,12 +53,12 @@ async fn _submit(year: i32, day: u32, part2: bool, answer: &str) {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_submit() {
-        submit("1", false);
-    }
-}
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+//
+//     #[test]
+//     fn test_submit() {
+//         submit("1", false);
+//     }
+// }

@@ -15,3 +15,4 @@ pyo3 = { version = "0.20", features = ["extension-module"] }
 pyo3-asyncio = { version = "0.20", features = ["tokio-runtime"] }
 reqwest = "0.11"
 tokio = "1.34"
+regex = "1.10.2"
