@@ -14,7 +14,7 @@ pub fn submit(answer: &str, part2: bool) {
     let mut confirmation = String::new();
     io::stdin().read_line(&mut confirmation).unwrap();
 
-    if confirmation != "y" {
+    if confirmation != "y\n" {
         println!("Skipping");
         return;
     }
@@ -44,13 +44,17 @@ async fn _submit(year: i32, day: u32, part2: bool, answer: &str) {
     match response {
         Ok(res) => {
             let html = res.text().await.unwrap();
-            let document = Html::parse_document(&html);
-            let selector = Selector::parse("main > article > p").unwrap();
-            let text = document.select(&selector).next().unwrap();
-            println!("{}", text.inner_html());
+            print_message(&html);
         }
         Err(err) => println!("FAILED: {}", err),
     }
+}
+
+fn print_message(html: &str) {
+    let document = Html::parse_document(html);
+    let selector = Selector::parse("main > article > p").unwrap();
+    let text = document.select(&selector).next().unwrap();
+    println!("{}", text.inner_html());
 }
 
 // #[cfg(test)]

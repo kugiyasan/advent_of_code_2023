@@ -1,6 +1,6 @@
 use regex::Regex;
 
-pub fn parse_ints(s: &str) -> Vec<i32> {
+pub fn parse_ints(s: &str) -> Vec<i64> {
     let re = Regex::new(r"[+-]?\d+").unwrap();
     re.find_iter(s)
         .map(|m| m.as_str().parse().unwrap())

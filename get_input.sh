@@ -75,8 +75,8 @@ EOF
 }
 
 main() {
-    # new_rust
-    new_python
+    new_rust
+    # new_python
 
     if [ -e "input" ]; then
         echo 'input file already exists' >&2
