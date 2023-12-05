@@ -57,8 +57,11 @@ def submit(answer: str, part2: bool) -> None:
 def main() -> None:
     with open(PATH) as f:
         lines = f.readlines()
+        import timeit
+        result = timeit.repeat(lambda: part1(lines), number=1000, repeat=3)
+        print(result)
         # submit(str(part1(lines)), False)
-        submit(str(part2(lines)), True)
+        # submit(str(part2(lines)), True)
 
 
 if __name__ == "__main__":
