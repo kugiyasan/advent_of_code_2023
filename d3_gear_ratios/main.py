@@ -12,26 +12,26 @@ Vec2 = Tuple[int, int]
 def find_symbol(lines: List[str], top_left: Vec2, bottom_right: Vec2) -> Vec2:
     for y in range(top_left[1], bottom_right[1] + 1):
         if y < 0 or len(lines) <= y:
-            print("skipping y")
+            # print("skipping y")
             continue
 
         for x in range(top_left[0], bottom_right[0]):
             if x < 0 or len(lines[y]) <= x:
-                print("skipping x")
+                # print("skipping x")
                 continue
 
             c = lines[y][x]
-            print(f"{c}", end="")
+            # print(f"{c}", end="")
 
             # if not c.isdigit() and c != ".":
             if c == "*":
-                print()
+                # print()
                 return x, y
 
-        print()
+        # print()
 
-    n = lines[top_left[1] + 1][top_left[0]+1:bottom_right[0]-1]
-    print(f"{top_left=} {bottom_right=} {n}")
+    # n = lines[top_left[1] + 1][top_left[0]+1:bottom_right[0]-1]
+    # print(f"{top_left=} {bottom_right=} {n}")
 
 
 def part1(lines: List[str], part2: bool) -> str:
@@ -55,7 +55,7 @@ def part1(lines: List[str], part2: bool) -> str:
                     else:
                         near_gear[coord] = n
 
-    print(s)
+    # print(s)
     return str(s)
 
 
@@ -71,11 +71,22 @@ def submit(answer: str, part2: bool) -> None:
         pass
 
 
-def main() -> None:
+def both_parts() -> None:
     with open(PATH) as f:
         lines = [s.strip() for s in f.readlines()]
-        # submit(str(part1(lines, False)), False)
-        submit(str(part1(lines, True)), True)
+        part1(lines, False)
+        part1(lines, True)
+
+
+def main() -> None:
+    # with open(PATH) as f:
+    #     lines = [s.strip() for s in f.readlines()]
+    #     submit(str(part1(lines, False)), False)
+    #     submit(str(part1(lines, True)), True)
+
+    import timeit
+    results = timeit.repeat(both_parts, number=1000, repeat=3)
+    print(results)
 
 
 if __name__ == "__main__":
