@@ -6,5 +6,6 @@ members = [
     "aoc_utils_tests",
     "d1_trebuchet",
     "d4_scratchcards",
-    "d5_fertilizer"
+    "d5_fertilizer",
+    "d6_wait_boat"
 ]

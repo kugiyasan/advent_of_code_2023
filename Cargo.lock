@@ -362,6 +362,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "d6_wait_boat"
+version = "0.1.0"
+dependencies = [
+ "aoc_utils",
+]
+
+[[package]]
 name = "derive_more"
 version = "0.99.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
