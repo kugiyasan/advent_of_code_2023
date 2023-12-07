@@ -2,27 +2,28 @@ use aoc_utils::submit;
 use std::fs;
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
-enum Hand {
-    FiveOfAKind([usize; 1]),
-    FourOfAKind([usize; 2]),
-    FullHouse([usize; 2]),
-    ThreeOfAKind([usize; 3]),
-    TwoPairs([usize; 3]),
-    OnePair([usize; 4]),
-    HighCard([usize; 5]),
-    // FiveOfAKind,
-    // FourOfAKind,
-    // FullHouse,
-    // ThreeOfAKind,
-    // TwoPairs,
-    // OnePair,
-    // HighCard,
+enum HandType {
+    // FiveOfAKind([usize; 1]),
+    // FourOfAKind([usize; 2]),
+    // FullHouse([usize; 2]),
+    // ThreeOfAKind([usize; 3]),
+    // TwoPairs([usize; 3]),
+    // OnePair([usize; 4]),
+    // HighCard([usize; 5]),
+    FiveOfAKind,
+    FourOfAKind,
+    FullHouse,
+    ThreeOfAKind,
+    TwoPairs,
+    OnePair,
+    HighCard,
 }
 
-// struct Hand {
-//     kind: HandType,
-//     bytes: [usize; 5],
-// }
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+struct Hand {
+    kind: HandType,
+    bytes: Vec<usize>,
+}
 
 fn parse_hand(hand: &str) -> Hand {
     let cards = b"AKQJT98765432";
@@ -33,6 +34,11 @@ fn parse_hand(hand: &str) -> Hand {
     let counts = cards
         .iter()
         .map(|&card| hand.iter().filter(|&&h| h == card).count())
+        .collect::<Vec<_>>();
+
+    let hand = hand
+        .iter()
+        .map(|h| cards.iter().position(|c| c == h).unwrap())
         .collect::<Vec<_>>();
 
     let two_index = counts.iter().position(|&count| count == 2);
@@ -48,7 +54,11 @@ fn parse_hand(hand: &str) -> Hand {
 
     if let Some(i) = two_index {
         if let Some(j) = three_index {
-            return Hand::FullHouse([i, j]);
+            // return Hand::FullHouse([i, j]);
+            return Hand {
+                kind: HandType::FullHouse,
+                bytes: hand,
+            };
         }
     }
 
@@ -56,32 +66,50 @@ fn parse_hand(hand: &str) -> Hand {
     println!("{}", max_of_a_kind);
 
     if max_of_a_kind == 5 {
-        return Hand::FiveOfAKind([five_index.unwrap()]);
+        // return Hand::FiveOfAKind([five_index.unwrap()]);
+        return Hand {
+            kind: HandType::FiveOfAKind,
+            bytes: hand,
+        };
     } else if max_of_a_kind == 4 {
-        return Hand::FourOfAKind([four_index.unwrap(), *singles[0]]);
+        // return Hand::FourOfAKind([four_index.unwrap(), *singles[0]]);
+        return Hand {
+            kind: HandType::FourOfAKind,
+            bytes: hand,
+        };
     } else if max_of_a_kind == 3 {
-        return Hand::ThreeOfAKind([three_index.unwrap(), *singles[0], *singles[1]]);
+        // return Hand::ThreeOfAKind([three_index.unwrap(), *singles[0], *singles[1]]);
+        return Hand {
+            kind: HandType::ThreeOfAKind,
+            bytes: hand,
+        };
     }
 
     if pairs.len() == 2 {
-        return Hand::TwoPairs([*pairs[0], *pairs[1], *singles[0]]);
+        // return Hand::TwoPairs([*pairs[0], *pairs[1], *singles[0]]);
+        return Hand {
+            kind: HandType::TwoPairs,
+            bytes: hand,
+        };
     } else if pairs.len() == 1 {
-        return Hand::OnePair([*pairs[0], *singles[0], *singles[1], *singles[2]]);
+        // return Hand::OnePair([*pairs[0], *singles[0], *singles[1], *singles[2]]);
+        return Hand {
+            kind: HandType::OnePair,
+            bytes: hand,
+        };
     }
 
-    Hand::HighCard([0; 5])
-    // let a = counts
-    //     .iter()
-    //     .filter_map(|&count| if count != 0 { Some(card) } else { None })
-    //     .collect::<Vec<_>>();
+    // Hand::HighCard([0; 5])
 
-    // Hand::HighCard()
-    // cards.find()
+    return Hand {
+        kind: HandType::HighCard,
+        bytes: hand,
+    };
 }
 
 fn main() {
-    // let path = "input";
-    let path = "example";
+    let path = "input";
+    // let path = "example";
     let buf = fs::read_to_string(path).unwrap();
 
     let mut input: Vec<(Hand, i32)> = buf
@@ -98,7 +126,8 @@ fn main() {
         .enumerate()
         .map(|(i, (hand, bid))| (i as i32 + 1) * bid)
         .collect::<Vec<_>>();
+    let sum: i32 = s.iter().sum();
 
-    println!("{:?} {:?}", &input[0..5], s);
-    // submit("1", false);
+    println!("{:?} {:?} {}", &input[0..5], s, sum);
+    submit(&sum.to_string(), false);
 }
