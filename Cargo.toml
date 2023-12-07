@@ -7,5 +7,6 @@ members = [
     "d1_trebuchet",
     "d4_scratchcards",
     "d5_fertilizer",
-    "d6_wait_boat"
+    "d6_wait_boat",
+    "d7_camel_cards"
 ]
