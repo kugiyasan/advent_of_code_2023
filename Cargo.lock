@@ -71,7 +71,6 @@ name = "aoc_utils"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "pyo3",
  "pyo3-asyncio",
  "regex",
  "reqwest",
@@ -370,6 +369,13 @@ dependencies = [
 
 [[package]]
 name = "d7_camel_cards"
+version = "0.1.0"
+dependencies = [
+ "aoc_utils",
+]
+
+[[package]]
+name = "d8_haunted_wasteland"
 version = "0.1.0"
 dependencies = [
  "aoc_utils",

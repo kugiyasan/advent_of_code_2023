@@ -2,7 +2,7 @@ mod grid;
 mod parsing;
 mod submit;
 mod vec2;
-mod wrapper;
+// mod wrapper;
 
 pub use crate::grid::Grid;
 pub use crate::parsing::parse_ints;
