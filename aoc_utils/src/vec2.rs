@@ -1,7 +1,7 @@
 use core::fmt::Debug;
 use std::ops::{Add, Div, Mul, Neg, Sub};
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, Hash, PartialEq, Eq)]
 pub struct Vec2 {
     pub x: i32,
     pub y: i32,

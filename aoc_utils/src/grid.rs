@@ -89,4 +89,18 @@ impl<T> Grid<T> {
 
         coords.into_iter().map(move |p| self.get(origin + p))
     }
+
+    pub fn neighbors_cross(&self, origin: Vec2) -> impl Iterator<Item = Vec2> + '_ {
+        let coords = [
+            Vec2::new(-1, 0),
+            Vec2::new(0, -1),
+            Vec2::new(0, 1),
+            Vec2::new(1, 0),
+        ];
+
+        coords
+            .into_iter()
+            .map(move |p| origin + p)
+            .filter(|&p| self.is_in_bound(p))
+    }
 }

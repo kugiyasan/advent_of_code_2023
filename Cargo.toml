@@ -9,5 +9,7 @@ members = [
     "d5_fertilizer",
     "d6_wait_boat",
     "d7_camel_cards",
-    "d8_haunted_wasteland"
+    "d8_haunted_wasteland",
+    "d9_mirage_maintenance",
+    "d10_pipe_maze"
 ]
