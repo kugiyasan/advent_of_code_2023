@@ -371,6 +371,7 @@ name = "d6_wait_boat"
 version = "0.1.0"
 dependencies = [
  "aoc_utils",
+ "criterion",
 ]
 
 [[package]]
