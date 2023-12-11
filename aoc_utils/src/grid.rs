@@ -67,7 +67,7 @@ impl<T> Grid<T> {
     pub fn enumerate(&self) -> impl Iterator<Item = (Vec2, &T)> {
         self.grid.iter().enumerate().map(|(i, cell)| {
             (
-                Vec2::new((i % self.height) as i32, (i / self.height) as i32),
+                Vec2::new((i % self.width) as i32, (i / self.width) as i32),
                 cell,
             )
         })
