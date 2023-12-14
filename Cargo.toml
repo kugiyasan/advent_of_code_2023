@@ -12,5 +12,6 @@ members = [
     "d8_haunted_wasteland",
     "d9_mirage_maintenance",
     "d10_pipe_maze",
-    "d11_cosmic_expansion"
+    "d11_cosmic_expansion",
+    "d12_hot_springs"
 ]
