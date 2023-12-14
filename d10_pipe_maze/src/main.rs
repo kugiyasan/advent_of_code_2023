@@ -2,6 +2,7 @@ mod direction;
 
 use crate::direction::is_compatible;
 use aoc_utils::*;
+use regex::Regex;
 use std::{
     collections::{HashMap, HashSet},
     fs,
@@ -84,51 +85,73 @@ fn find_loop(grid: &Grid<char>, start_pos: Vec2) -> HashSet<Vec2> {
 
 fn find_inside_loop_count(grid: &Grid<char>, start_pos: Vec2) -> usize {
     let the_loop = find_loop(&grid, start_pos);
+    // let the_loop: HashMap<Vec2, i32> = find_loop(&grid, start_pos)
+    //     .into_iter()
+    //     .map(|p| {
+    //         let c = *grid.get(p);
+    //         // TODO check for S
+    //         if c == '-' || c == '|' {
+    //             (p, 2)
+    //         } else {
+    //             (p, 1)
+    //         }
+    //     })
+    //     .collect();
 
     let inside_loop_count = grid
         .enumerate()
-        .filter(|(_, &c)| c == '.')
+        .filter(|(p, _)| !the_loop.contains(p))
         .filter(|(p, _)| {
-            // println!("{:?}", p);
-            let left = (0..p.x - 1)
-                .filter(|&x| the_loop.contains(&Vec2::new(x, p.y)))
-                .count();
+            let mut left = grid.get_row(p.y as usize).collect::<Vec<_>>();
+            if p.y == 4 {
+                println!("{:?}", left);
+            }
+            left.truncate(p.x as usize);
+            // TODO remove chars that aren't in the_loop
+            let left = left
+                .into_iter()
+                .enumerate()
+                .filter(|(i, c)| the_loop.contains(&Vec2::new(*i as i32, p.y)))
+                .map(|t| t.1)
+                .collect::<String>();
 
-            let right = (p.x + 1..grid.width() as i32)
-                .filter(|&x| the_loop.contains(&Vec2::new(x, p.y)))
-                .count();
+            let fj = Regex::new("F-*J").unwrap();
+            let a = fj.find_iter(&left).count();
 
-            let up = (0..p.y - 1)
-                .filter(|&y| the_loop.contains(&Vec2::new(p.x, y)))
-                .count();
+            let l7 = Regex::new("L-*7").unwrap();
+            let b = l7.find_iter(&left).count();
 
-            let down = (p.y + 1..grid.height() as i32)
-                .filter(|&y| the_loop.contains(&Vec2::new(p.x, y)))
-                .count();
+            let pipe = Regex::new(r"\|").unwrap();
+            let c = pipe.find_iter(&left).count();
 
-            // println!("{} {} {} {}", up, down, left, right);
-            // inside if odd
-            left % 2 == 1 && right % 2 == 1 && up % 2 == 1 && down % 2 == 1
+            // println!("{} {} {}", a, b, c);
+            (a + b + c) % 2 == 1
         })
-        // .map(|n| println!("{:?}", n))
+        .map(|n| println!("{:?}", n))
         .count();
 
-    println!("{:?}", the_loop);
-    println!("{:?}", inside_loop_count);
+    // println!("{:?}", the_loop);
+    // println!("{:?}", inside_loop_count);
     inside_loop_count
 }
 
-fn main() {
-    // let path = "input";
-    let path = "example4";
+fn read_file_and_solve(path: &str) {
     let buf = fs::read_to_string(path).unwrap();
 
     let input: Vec<_> = buf.trim().split('\n').collect();
 
-    let grid = create_grid(&input);
+    let mut grid = create_grid(&input);
 
     let (start_pos, _) = grid.enumerate().find(|(_p, c)| **c == 'S').unwrap();
-    println!("{:?}", start_pos);
+    // println!("{:?}", start_pos);
+    let c = match path {
+        "input" => '-',
+        "example3" => 'F',
+        "example4" => 'F',
+        "example5" => '7',
+        _ => 'S',
+    };
+    grid.set(start_pos, c);
 
     // let answer = find_farthest_position(&grid, start_pos);
 
@@ -137,5 +160,20 @@ fn main() {
     // println!("{:?}", &grid);
     println!("{:?}", answer);
     // println!("{:?}", &input[0..5]);
+}
+
+fn main() {
+    let path = "example3";
+    read_file_and_solve(path);
+
+    let path = "example4";
+    read_file_and_solve(path);
+
+    let path = "example5";
+    read_file_and_solve(path);
+
+    let path = "input";
+    read_file_and_solve(path);
+
     // submit(&answer.to_string(), false);
 }
