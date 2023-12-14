@@ -1,5 +1,28 @@
 use aoc_utils::*;
 
+pub fn iterator_faster_version(buf: &str) -> i64 {
+    let input = buf
+        .trim()
+        .split('\n')
+        .map(|line| line.replace(' ', "")) // comment this line for part 1
+        .map(|line| parse_ints(&line))
+        .collect::<Vec<_>>();
+
+    input[0]
+        .iter()
+        .zip(&input[1])
+        .map(|(&time, &distance)| {
+            let inside_sqrt = time * time - 4 * distance;
+            let sqrt = (inside_sqrt as f64).sqrt();
+
+            let time = time as f64;
+            let upper_bound = (time + sqrt) / 2.0;
+            let lower_bound = (time - sqrt) / 2.0;
+            upper_bound.floor() as i64 - lower_bound.ceil() as i64 + 1
+        })
+        .product()
+}
+
 pub fn iterator_version(buf: &str) -> i64 {
     let input = buf
         .trim()
