@@ -344,6 +344,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "d11_cosmic_expansion"
+version = "0.1.0"
+dependencies = [
+ "aoc_utils",
+]
+
+[[package]]
 name = "d1_trebuchet"
 version = "0.1.0"
 dependencies = [
