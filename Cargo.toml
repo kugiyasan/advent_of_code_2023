@@ -13,5 +13,6 @@ members = [
     "d9_mirage_maintenance",
     "d10_pipe_maze",
     "d11_cosmic_expansion",
-    "d12_hot_springs"
+    "d12_hot_springs",
+    "d15_lens_library"
 ]

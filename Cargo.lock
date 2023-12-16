@@ -361,6 +361,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "d15_lens_library"
+version = "0.1.0"
+dependencies = [
+ "aoc_utils",
+]
+
+[[package]]
 name = "d1_trebuchet"
 version = "0.1.0"
 dependencies = [
